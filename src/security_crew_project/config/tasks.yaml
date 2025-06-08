@@ -1,0 +1,67 @@
+analyze_url:
+  description: |
+    Analyze the provided URL: {url}
+    
+    Your analysis should include:
+    - Domain reputation check
+    - File type detection if it's a download link
+    - Behavioral analysis indicators
+    - Threat confidence score (0-100)
+    - Detailed reasoning for the score
+    
+    Pay special attention to:
+    - .exe file downloads (high risk)
+    - Suspicious domains
+    - URL shorteners
+    - Phishing indicators
+  expected_output: |
+    A detailed analysis report containing:
+    - URL being analyzed
+    - Threat confidence score (0-100)
+    - Risk classification (benign/suspicious/malicious)
+    - File type (if applicable)
+    - Detailed reasoning
+    - Recommended action
+
+communicate_with_soc:
+  description: |
+    Based on the URL analysis results: {analysis_results}
+    
+    Communicate with the SOC admin to determine:
+    - Severity level (low/medium/high)
+    - Required action (allow/monitor/block)
+    - Any additional security measures needed
+    
+    Consider the confidence score and threat indicators when presenting to SOC.
+  expected_output: |
+    SOC response containing:
+    - Severity classification
+    - Recommended action
+    - Additional security measures
+    - Justification for the decision
+
+monitor_and_validate:
+  description: |
+    Monitor the communication between URL Analyzer and SOC Communicator.
+    
+    Original Analysis: {url_analysis}
+    SOC Response: {soc_response}
+    URL: {url}
+    
+    Validate:
+    - Consistency between analysis and SOC response
+    - Policy compliance
+    - Historical patterns for this URL
+    - Override conditions
+    
+    Block if:
+    - High confidence malicious URL marked as benign
+    - .exe download marked as low severity
+    - Repeated false negatives for same URL
+    - SOC response doesn't match threat level
+  expected_output: |
+    Gatekeeper decision containing:
+    - Final action (approve/block/review)
+    - Override reason (if applicable)
+    - Security policy compliance status
+    - Recommendations for system improvement
